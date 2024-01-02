@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095012437085",
+    "project_id": "peeps-676de",
+    "storage_bucket": "peeps-676de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095012437085:android:b4efeca51a6a19443691b4",
+        "android_client_info": {
+          "package_name": "com.example.peeps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3iL0OP3YeDCnKOS8KOAz-nFL9fRbk7_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

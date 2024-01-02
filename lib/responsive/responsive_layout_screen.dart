@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:peeps/constants/dimensions.dart';
 
 class ResponsiveLayout extends StatelessWidget {
-  final Widget webScreenLaout;
-  final Widget mobileScreenLaout;
+  final Widget webScreenLayout;
+  final Widget mobileScreenLayout;
   const ResponsiveLayout({
     super.key,
-    required this.mobileScreenLaout,
-    required this.webScreenLaout,
+    required this.mobileScreenLayout,
+    required this.webScreenLayout,
   });
 
   @override
@@ -16,11 +16,11 @@ class ResponsiveLayout extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth > webScreenSize) {
           //? Web Screen
-          return webScreenLaout;
+          return webScreenLayout;
         }
         //? Mobile Screen
         else {
-          return mobileScreenLaout;
+          return mobileScreenLayout;
         }
       },
     );
