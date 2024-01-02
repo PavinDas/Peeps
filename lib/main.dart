@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:peeps/constants/colors.dart';
 import 'package:peeps/constants/consts.dart';
-import 'package:peeps/screens/home/screen_home.dart';
+import 'package:peeps/responsive/mobile_screen_layout.dart';
+import 'package:peeps/responsive/responsive_layout_screen.dart';
+import 'package:peeps/responsive/web_screen_layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appName,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
-        useMaterial3: true,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: bgColor,
       ),
-      home: const ScreenHome(),
+      home: ResponsiveLayout(
+        mobileScreenLaout: MobileScreenLayout(),
+        webScreenLaout: WebScreenLayout(),
+      ),
     );
   }
 }
