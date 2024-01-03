@@ -54,10 +54,48 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 24,
               ),
 
+              //* Circular widget indicate selected file
+
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(
+                      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.add_a_photo,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(
+                height: 24,
+              ),
+
+              //* Username input field
+              TextInputField(
+                textEditingController: _usernameController,
+                hintText: enterusernames,
+                textInputType: TextInputType.emailAddress,
+              ),
+
+              const SizedBox(
+                height: 24,
+              ),
+
               //* Email input field
               TextInputField(
                 textEditingController: _emailController,
-                hintText: enterDetails,
+                hintText: enterEmail,
                 textInputType: TextInputType.emailAddress,
               ),
 
@@ -71,6 +109,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 hintText: enterPass,
                 textInputType: TextInputType.text,
                 isPass: true,
+              ),
+
+              const SizedBox(
+                height: 24,
+              ),
+
+              //* Bio input field
+              TextInputField(
+                textEditingController: _bioController,
+                hintText: enterBio,
+                textInputType: TextInputType.text,
               ),
 
               const SizedBox(
