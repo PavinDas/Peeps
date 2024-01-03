@@ -6,6 +6,8 @@ import 'package:peeps/constants/consts.dart';
 import 'package:peeps/responsive/mobile_screen_layout.dart';
 import 'package:peeps/responsive/responsive_layout_screen.dart';
 import 'package:peeps/responsive/web_screen_layout.dart';
+import 'package:peeps/screens/login_screen.dart';
+import 'package:peeps/screens/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,12 +39,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
+        scaffoldBackgroundColor: secColor,
       ),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileScreenLayout(),
-        webScreenLayout: WebScreenLayout(),
-      ),
+      // home: const ResponsiveLayout(
+      //   mobileScreenLayout: MobileScreenLayout(),
+      //   webScreenLayout: WebScreenLayout(),
+      // ),
+
+      home: SignupScreen(),
     );
   }
 }
