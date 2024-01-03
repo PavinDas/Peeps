@@ -1,16 +1,35 @@
-# peeps
 
-A new Flutter project.
+# Peeps
 
-## Getting Started
+Responsive Social Media Application using Flutter for Mobile and Web
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+![Logo](https://github.com/PavinDas/Peeps/blob/master/assets/images/WhitePeeps.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack
+
+**Client:** Flutter
+
+**Server:** Firebase
+
+
+## Features
+
+- Email authentication
+- Image sharing (From Camera & Gallery)
+- Notification badge
+- Search users
+- Edit profile
+- Responsive
+## Authors
+
+- [Pavin Das](https://www.github.com/PavinDas)
+
+- [Ganesh V](https://www.github.com/ganesh-2004)
+
+- Primary Color : 126, 87, 194
+- Background Color : 149, 117, 205
+- Secondary Color : 224, 207, 255
+- Text Color : 237, 231, 246
+- White Color : 255, 255, 255
