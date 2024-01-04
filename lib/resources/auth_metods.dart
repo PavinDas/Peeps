@@ -46,7 +46,7 @@ class AuthMethods {
           'following': [],
           'photoUrl': photoUrl,
         });
-        res = "Success";
+        res = "success";
       }
     } catch (e) {
       res = e.toString();
@@ -67,7 +67,7 @@ class AuthMethods {
           email: email,
           password: password,
         );
-        res = 'Success';
+        res = 'success';
       } else {
         res = 'Please enter all the fields';
       }

@@ -5,6 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:peeps/constants/consts.dart';
 import 'package:peeps/constants/images.dart';
 import 'package:peeps/resources/auth_metods.dart';
+import 'package:peeps/responsive/mobile_screen_layout.dart';
+import 'package:peeps/responsive/responsive_layout_screen.dart';
+import 'package:peeps/responsive/web_screen_layout.dart';
 import 'package:peeps/utils/utils.dart';
 import 'package:peeps/widgets/text_input_field.dart';
 
@@ -58,6 +61,15 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (res != 'success') {
       showSnackBar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
     }
   }
 

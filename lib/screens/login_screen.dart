@@ -4,6 +4,9 @@ import 'package:peeps/constants/consts.dart';
 import 'package:peeps/constants/images.dart';
 import 'package:peeps/constants/strings.dart';
 import 'package:peeps/resources/auth_metods.dart';
+import 'package:peeps/responsive/mobile_screen_layout.dart';
+import 'package:peeps/responsive/responsive_layout_screen.dart';
+import 'package:peeps/responsive/web_screen_layout.dart';
 import 'package:peeps/screens/signup_screen.dart';
 import 'package:peeps/utils/utils.dart';
 import 'package:peeps/widgets/text_input_field.dart';
@@ -37,6 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
       password: _passwordController.text,
     );
     if (res == 'success') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
     } else {
       setState(() {
         _isLoading = false;
@@ -98,9 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               //* Login button
               InkWell(
-                onTap: () {
-                  logInUser();
-                },
+                onTap: logInUser,
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
