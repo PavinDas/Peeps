@@ -1,6 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:peeps/constants/consts.dart';
 import 'package:peeps/constants/images.dart';
+import 'package:peeps/resources/auth_metods.dart';
+import 'package:peeps/utils/utils.dart';
 import 'package:peeps/widgets/text_input_field.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,6 +20,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -24,6 +31,34 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordController.dispose();
     _bioController.dispose();
     _usernameController.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List im = await picImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
+  }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _usernameController.text,
+      bio: _bioController.text,
+      file: _image!,
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (res != 'success') {
+      showSnackBar(res, context);
+    }
   }
 
   @override
@@ -58,17 +93,20 @@ class _SignupScreenState extends State<SignupScreen> {
 
               Stack(
                 children: [
-                  const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(
-                      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                    ),
-                  ),
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : const CircleAvatar(
+                          radius: 64, backgroundImage: AssetImage(avatar1)),
                   Positioned(
                     bottom: -10,
                     left: 80,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        selectImage();
+                      },
                       icon: const Icon(
                         Icons.add_a_photo,
                       ),
@@ -126,9 +164,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 24,
               ),
 
-              //* Login button
+              //* signUp button
               InkWell(
-                onTap: () {},
+                onTap: signUpUser,
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -139,13 +177,19 @@ class _SignupScreenState extends State<SignupScreen> {
                       Radius.circular(4),
                     ),
                   ),
-                  child: const Text(
-                    signup,
-                    style: TextStyle(
-                      fontFamily: semibold,
-                      fontSize: 16,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: textColor,
+                          ),
+                        )
+                      : const Text(
+                          signup,
+                          style: TextStyle(
+                            fontFamily: semibold,
+                            fontSize: 16,
+                          ),
+                        ),
                 ),
               ),
 
