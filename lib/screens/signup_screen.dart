@@ -221,7 +221,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     width: 10,
                   ),
                   GestureDetector(
-                    // onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,

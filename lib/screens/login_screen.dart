@@ -3,6 +3,9 @@ import 'package:peeps/constants/colors.dart';
 import 'package:peeps/constants/consts.dart';
 import 'package:peeps/constants/images.dart';
 import 'package:peeps/constants/strings.dart';
+import 'package:peeps/resources/auth_metods.dart';
+import 'package:peeps/screens/signup_screen.dart';
+import 'package:peeps/utils/utils.dart';
 import 'package:peeps/widgets/text_input_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -22,6 +26,23 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void logInUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().logInUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+    if (res == 'success') {
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      showSnackBar(res, context);
+    }
   }
 
   @override
@@ -77,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
               //* Login button
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  logInUser();
+                },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -88,13 +111,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       Radius.circular(4),
                     ),
                   ),
-                  child: const Text(
-                    login,
-                    style: TextStyle(
-                      fontFamily: semibold,
-                      fontSize: 16,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: textColor,
+                          ),
+                        )
+                      : const Text(
+                          login,
+                          style: TextStyle(
+                            fontFamily: semibold,
+                            fontSize: 16,
+                          ),
+                        ),
                 ),
               ),
 
@@ -126,7 +155,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 10,
                   ),
                   GestureDetector(
-                    // onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignupScreen(),
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,

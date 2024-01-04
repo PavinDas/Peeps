@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peeps/constants/colors.dart';
 import 'package:peeps/constants/consts.dart';
-import 'package:peeps/screens/signup_screen.dart';
+import 'package:peeps/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       //   webScreenLayout: WebScreenLayout(),
       // ),
 
-      home: SignupScreen(),
+      home: LoginScreen(),
     );
   }
 }
