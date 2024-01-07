@@ -41,6 +41,7 @@ const appName = "Peeps",
     edit = "Edit",
     explore = "Explore",
     search = "Search",
+    postTo = "Post to",
 
     //! Account Strings
     myAccount = "My Account",

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peeps/constants/dimensions.dart';
+import 'package:peeps/utils/global_variables.dart';
 import 'package:peeps/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +17,9 @@ class ResponsiveLayout extends StatefulWidget {
 }
 
 class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+
+  
+
   @override
   void initState() {
     // TODO: implement initState

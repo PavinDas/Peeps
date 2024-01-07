@@ -108,10 +108,16 @@ class _SignupScreenState extends State<SignupScreen> {
                   _image != null
                       ? CircleAvatar(
                           radius: 64,
-                          backgroundImage: MemoryImage(_image!),
+                          backgroundImage: MemoryImage(
+                            _image!,
+                          ),
                         )
                       : const CircleAvatar(
-                          radius: 64, backgroundImage: AssetImage(avatar1)),
+                          radius: 64,
+                          backgroundImage: AssetImage(
+                            avatar2,
+                          ),
+                        ),
                   Positioned(
                     bottom: -10,
                     left: 80,
@@ -182,7 +188,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                  ),
                   decoration: const BoxDecoration(
                     color: mainColor,
                     borderRadius: BorderRadius.all(
