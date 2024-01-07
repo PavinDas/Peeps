@@ -1,8 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:peeps/constants/colors.dart';
 import 'package:peeps/constants/consts.dart';
-import 'package:peeps/constants/images.dart';
+import 'package:peeps/models/user.dart';
+import 'package:peeps/providers/user_provider.dart';
+import 'package:peeps/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
@@ -12,83 +18,161 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-  @override
-  Widget build(BuildContext context) {
-    // return Center(
-    //   child: IconButton(
-    //     onPressed: () {},
-    //     icon: Icon(
-    //       Icons.upload,
-    //     ),
-    //   ),
-    // );
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: secColor,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_back,
+  Uint8List? _file;
+  TextEditingController _descriptionController = TextEditingController();
+
+  _selectImage(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          backgroundColor: mainColor,
+          surfaceTintColor: bgColor,
+          title: const Text(
+            createPost,
           ),
-        ),
-        title: const Text(postTo),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              'Post',
-              style: TextStyle(
-                fontFamily: bold,
-                color: whiteColor,
-                fontSize: 16,
+          children: [
+            //* take photo from camera
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(
+                20,
+              ),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List file = await picImage(
+                  ImageSource.camera,
+                );
+                setState(
+                  () {
+                    _file = file;
+                  },
+                );
+              },
+              child: const Text(
+                takePhoto,
               ),
             ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CircleAvatar(
-                backgroundImage: AssetImage(avatar2),
+
+            //* upload photo from gallery
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(
+                20,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.45,
-                child: const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Write a caption',
-                    border: InputBorder.none,
-                  ),
-                  maxLines: 8,
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List file = await picImage(
+                  ImageSource.gallery,
+                );
+                setState(
+                  () {
+                    _file = file;
+                  },
+                );
+              },
+              child: const Text(
+                choosePhoto,
+              ),
+            ),
+
+            //* cancel
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(
+                20,
+              ),
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
+              child: const Center(
+                child: Text(
+                  cancel,
                 ),
               ),
-              SizedBox(
-                height: 45,
-                width: 45,
-                child: AspectRatio(
-                  aspectRatio: 487 / 451,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          avatar1,
-                        ),
-                        fit: BoxFit.fill,
-                        alignment: FractionalOffset.topCenter
-                      ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
+
+    return _file == null
+        ? Center(
+            child: IconButton(
+              onPressed: () => _selectImage(context),
+              icon: Icon(
+                Icons.upload,
+              ),
+            ),
+          )
+        : Scaffold(
+            appBar: AppBar(
+              backgroundColor: secColor,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_back,
+                ),
+              ),
+              title: const Text(postTo),
+              actions: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Post',
+                    style: TextStyle(
+                      fontFamily: bold,
+                      color: whiteColor,
+                      fontSize: 16,
                     ),
                   ),
                 ),
-              ),
-              Divider(),
-            ],
-          )
-        ],
-      ),
-    );
+              ],
+            ),
+            body: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(user.photoUrl),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: TextField(
+                        controller: _descriptionController,
+                        decoration: const InputDecoration(
+                          hintText: 'Write a caption',
+                          border: InputBorder.none,
+                        ),
+                        maxLines: 8,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 45,
+                      width: 45,
+                      child: AspectRatio(
+                        aspectRatio: 487 / 451,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: MemoryImage(_file!),
+                              fit: BoxFit.fill,
+                              alignment: FractionalOffset.topCenter,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Divider(),
+                  ],
+                )
+              ],
+            ),
+          );
   }
 }
