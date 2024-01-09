@@ -1,4 +1,6 @@
 //! Main Strings
+import 'dart:html';
+
 const appName = "Peeps",
     credits = "@pavin__das",
     appversion = "Version 1.0.0",
@@ -46,6 +48,12 @@ const appName = "Peeps",
     createPost = "Create a post",
     takePhoto = "Take a photo",
     choosePhoto = "Choose a photo",
+    download = "Download",
+    downloadNow = "Download Now",
+    like = "Like",
+    Comment = "Comment",
+    share = "Share",
+    save = "Save",
 
     //! Account Strings
     myAccount = "My Account",
